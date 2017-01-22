@@ -1,0 +1,5 @@
+C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\HM-DBA\obj\Debug\HM-DBA.csprojResolveAssemblyReference.cache
+C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\HM-DBA\bin\Debug\HM-DBA.dll
+C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\HM-DBA\bin\Debug\HM-DBA.pdb
+C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\HM-DBA\obj\Debug\HM-DBA.dll
+C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\HM-DBA\obj\Debug\HM-DBA.pdb
