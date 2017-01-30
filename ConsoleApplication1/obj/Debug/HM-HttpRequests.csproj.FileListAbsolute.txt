@@ -21,3 +21,9 @@ C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\Con
 C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication1\obj\Debug\HM-HttpRequests.csprojResolveAssemblyReference.cache
 C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Users\CodeValue\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\CodeValue\Documents\Visual Studio 2015\Projects\ConsoleApplication5\ConsoleApplication1\bin\Debug\System.Web.Cors.dll
+C:\Users\CodeValue\Documents\Visual Studio 2015\Projects\ConsoleApplication5\ConsoleApplication1\bin\Debug\System.Web.Http.Cors.dll
+C:\Users\CodeValue\Documents\Visual Studio 2015\Projects\ConsoleApplication5\ConsoleApplication1\bin\Debug\System.Web.Http.Cors.xml
+C:\Users\CodeValue\Desktop\HM-Server\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\CodeValue\Desktop\HM-Server\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\CodeValue\Desktop\HM-Server\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

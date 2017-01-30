@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Runtime.InteropServices;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ConsoleApplication1;
 
 using ConsoleApplication1.responseModel;
@@ -13,6 +14,7 @@ using HM_DBA.model;
 
 namespace OwinSelfhostSample
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class CompaniesController : ApiController
     {
         public HttpResponseMessage Get()
