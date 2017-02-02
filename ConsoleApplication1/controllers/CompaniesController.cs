@@ -19,6 +19,7 @@ namespace OwinSelfhostSample
     {
         public HttpResponseMessage Get()
         {
+           
             var main = new MainAccess();
 
             var response = new HttpResponseMessage();
@@ -88,6 +89,7 @@ namespace OwinSelfhostSample
             main.CreateUser(companyId, user);
 
             response.StatusCode = HttpStatusCode.Created;
+            response.Content = new StringContent("");
             return response;
 
         }

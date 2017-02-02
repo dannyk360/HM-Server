@@ -25,7 +25,7 @@ namespace HM_DBA
             {
                 returnValue = new Visa();
                 returnValue.cvv = (int)reader["cvv"];
-                returnValue.expiretionDate = (DateTime)reader["expiretionDate"];
+                returnValue.expirationDate =reader["expiretionDate"].ToString();
                 returnValue.visaNumber = (string)reader["visaNumber"];
             }
             conn.Close();
@@ -57,10 +57,10 @@ namespace HM_DBA
         public void Create(SqlConnection conn, Company company)
         {
             var query = new SqlCommand();
-
+            string expiretionDateFormat = "yyyy-MM-dd HH:MM:ss";
             conn.Open();
             query.CommandText = "INSERT INTO Visa (id, visaNumber, expiretionDate, cvv) VALUES ('"
-                                 + (company.visaId) + "', '" + company.visa.visaNumber + "', '" + company.visa.expiretionDate + "', '"
+                                 + (company.visaId) + "', '" + company.visa.visaNumber + "', '" + company.visa.expirationDate+ "', '"
                                  + company.visa.cvv+"');";
             query.CommandType = CommandType.Text;
             query.Connection = conn;
@@ -73,7 +73,7 @@ namespace HM_DBA
         {
             var query = new SqlCommand();
             conn.Open();
-            query.CommandText = "UPDATE Visa SET visaNumber = '" + companyVisa.visaNumber + "', expiretionDate = '" + companyVisa.expiretionDate +
+            query.CommandText = "UPDATE Visa SET visaNumber = '" + companyVisa.visaNumber + "', expiretionDate = '" + companyVisa.expirationDate +
                                 "',cvv = " + companyVisa.cvv + " WHERE id = " + visaId + ";";
             query.CommandType = CommandType.Text;
             query.Connection = conn;

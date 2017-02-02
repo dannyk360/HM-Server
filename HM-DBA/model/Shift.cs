@@ -4,15 +4,15 @@ namespace HM_DBA.model
 {
     public class Shift
     {
-        public DateTime date = new DateTime();
-        public DateTime start = new DateTime();
-        public DateTime end = new DateTime();
+        public string date = "";
+        public string start = "";
+        public string end ="";
         public string comment = "";
         public Shift()
         {
         }
 
-        public Shift(DateTime date, DateTime start, DateTime end, string comment)
+        public Shift(string date, string start, string end, string comment)
         {
             this.date = date;
             this.start = start;

@@ -4,12 +4,14 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ConsoleApplication1;
 using HM_DBA;
 using HM_DBA.model;
 
 namespace OwinSelfhostSample
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class CompanyUsersController : ApiController
     {
 

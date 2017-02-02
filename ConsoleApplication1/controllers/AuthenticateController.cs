@@ -4,13 +4,15 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-
+using System.Web.Http.Cors;
 using ConsoleApplication1.responseModel;
 using HM_DBA;
 using HM_DBA.model;
+using Newtonsoft.Json.Linq;
 
 namespace OwinSelfhostSample
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class AuthenticateController : ApiController
     {
 
@@ -18,7 +20,8 @@ namespace OwinSelfhostSample
         public HttpResponseMessage Post(HttpRequestMessage request)
         {
             MainAccess main = new MainAccess();
-            var requestData = request.Content.ReadAsAsync<User>().Result;
+            var json = request.Content.ReadAsStringAsync().Result;
+            var requestData = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(json);
             var response = new HttpResponseMessage();
             User user;
 
