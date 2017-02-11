@@ -16,13 +16,14 @@ namespace ConsoleApplication1.responseModel
 
         public AuthenticateResponse()
         {
+            token = "token";
         }
 
         public AuthenticateResponse(User user, Company company)
         {
             this.user = user;
             this.company = company;
-            token = "token";
+            token = user.id.ToString();
         }
     }
 }

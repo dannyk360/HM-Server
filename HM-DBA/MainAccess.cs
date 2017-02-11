@@ -49,8 +49,8 @@ namespace HM_DBA
         public Company GetCompany(int companyId)
         {
             Company company =  companies.Get(connection,companyId);
-            company.users = users.GetByCompanyId(connection, companyId);
-            company.users.ForEach(user => user.shifts = shifts.GetById(connection, user.id));
+            company.employees = users.GetByCompanyId(connection, companyId);
+            company.employees.ForEach(user => user.shifts = shifts.GetById(connection, user.id));
             company.visa = visas.Get(connection, company.visaId);
 
             return company;
@@ -62,8 +62,8 @@ namespace HM_DBA
             allCompanies.ForEach(company =>
             {
                 company.visa = visas.Get(connection, company.id);
-                company.users = users.GetByCompanyId(connection, company.id);
-                company.users.ForEach(userInComapny =>
+                company.employees = users.GetByCompanyId(connection, company.id);
+                company.employees.ForEach(userInComapny =>
                 {
                     userInComapny.shifts = shifts.GetById(connection, userInComapny.id);
                 });
@@ -157,6 +157,21 @@ namespace HM_DBA
         {
             users.Delete(connection,id);
             shifts.DeleteByUser(connection,id);
+        }
+
+        public bool CheckIsAdmin(int userId)
+        {
+            return users.CheckIsAdmin(connection, userId);
+        }
+
+        public bool isUserInCompany(int companyId, int userId)
+        {
+            return users.CheckIsUserInCompany(connection, companyId, userId);
+        }
+
+        public bool IsUserManager(int companyId, int tokenId)
+        {
+            return users.CheckIsUserManager(connection,companyId, tokenId);
         }
     }
 }

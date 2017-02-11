@@ -9,7 +9,7 @@ namespace HM_DBA.model
         public string address;
         public string field;
         public Visa visa;
-        public List<User> users;
+        public List<User> employees;
         public int visaId;
         public Company()
         {

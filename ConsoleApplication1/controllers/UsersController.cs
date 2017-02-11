@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -14,11 +15,19 @@ namespace OwinSelfhostSample
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
-        public HttpResponseMessage Get()
+        public HttpResponseMessage Get(HttpRequestMessage request)
         {
             MainAccess main = new MainAccess();
 
             var response = new HttpResponseMessage();
+            var idString = request.Headers.GetValues("token").First();
+
+            if (!main.CheckIsAdmin(int.Parse(idString)))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("user is not Admin");
+                return response;
+            }
             var users = main.GetUsers();
 
             response.Content = new ObjectContent<List<User>>(users, new JsonMediaTypeFormatter());
@@ -50,19 +59,28 @@ namespace OwinSelfhostSample
         {
             var main = new MainAccess();
             var user = request.Content.ReadAsAsync<User>().Result;
-            var result = new HttpResponseMessage();
+            var response = new HttpResponseMessage();
+
+            var idString = request.Headers.GetValues("token").First();
+
+            if (!main.IsUserManager(main.GetUser(user.id).companyId , int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("user is not in company");
+                return response;
+            }
 
             if (main.CheckIsUserExist(user.username))
             {
-                result.StatusCode = HttpStatusCode.BadRequest;
-                result.Content = new StringContent("username exist in the system");
-                return result;
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("username exist in the system");
+                return response;
             }
 
             main.CreateUser(user.companyId,user);
 
-            result.StatusCode = HttpStatusCode.Created;
-            return result;
+            response.StatusCode = HttpStatusCode.Created;
+            return response;
         }
 
         public HttpResponseMessage Put(int id, HttpRequestMessage request)
@@ -70,30 +88,47 @@ namespace OwinSelfhostSample
             var main = new MainAccess();
             var user = request.Content.ReadAsAsync<User>().Result;
 
-            var result = new HttpResponseMessage();
+            var response = new HttpResponseMessage();
+
+            var idString = request.Headers.GetValues("token").First();
+
+            if (!main.isUserInCompany(main.GetUser(id).companyId, int.Parse(idString)) && !main.IsUserManager(main.GetUser(user.id).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("user is not in company");
+                return response;
+            }
 
             if (main.CheckIfUserExist(id))
             {
-                result.Content = new StringContent("the user does not exist");
-                result.StatusCode = HttpStatusCode.NotFound;
-                return result;
+                response.Content = new StringContent("the user does not exist");
+                response.StatusCode = HttpStatusCode.NotFound;
+                return response;
             }
 
             main.UpdateUser(id,user);
-            result.StatusCode = HttpStatusCode.OK;
-            return result;
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
 
         }
 
-        public HttpResponseMessage Delete(int id)
+        public HttpResponseMessage Delete(int id, HttpRequestMessage request)
         {
             var main = new MainAccess();
-            var result = new HttpResponseMessage();
+            var response = new HttpResponseMessage();
+            var idString = request.Headers.GetValues("token").First();
+
+            if (!main.IsUserManager(main.GetUser(id).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("user is not in company");
+                return response;
+            }
 
             main.DeleteUser(id);
 
-            result.StatusCode = HttpStatusCode.OK;
-            return result;
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
         }
     }
 }

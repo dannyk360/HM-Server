@@ -291,5 +291,90 @@ namespace HM_DBA
             query.ExecuteReader();
             conn.Close();
         }
+
+        public bool CheckIsAdmin(SqlConnection conn, int id)
+        {
+            var query = new SqlCommand();
+            bool response;
+            conn.Open();
+            query.CommandText = "SELECT * FROM Users WHERE id = " + id;
+            query.CommandType = CommandType.Text;
+            query.Connection = conn;
+
+            var reader = query.ExecuteReader();
+            if (reader.Read())
+            {
+                response = (bool)reader["isAdmin"];
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+
+
+            conn.Close();
+            return response;
+        }
+
+        public bool CheckIsUserInCompany(SqlConnection conn,int companyId, int userId)
+        {
+            var query = new SqlCommand();
+            int actualCompany;
+            conn.Open();
+            query.CommandText = "SELECT * FROM Users WHERE id = " + userId;
+            query.CommandType = CommandType.Text;
+            query.Connection = conn;
+
+            var reader = query.ExecuteReader();
+            if (reader.Read())
+            {
+                actualCompany = (int)reader["companyId"];
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+
+
+            conn.Close();
+            if (actualCompany != companyId)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckIsUserManager(SqlConnection conn, int companyId, int tokenId)
+        {
+            var query = new SqlCommand();
+            int actualCompany;
+            bool isManager;
+            conn.Open();
+            query.CommandText = "SELECT * FROM Users WHERE id = " + tokenId;
+            query.CommandType = CommandType.Text;
+            query.Connection = conn;
+
+            var reader = query.ExecuteReader();
+            if (reader.Read())
+            {
+                actualCompany = (int)reader["companyId"];
+                isManager = (bool) reader["isManager"];
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+
+
+            conn.Close();
+            if (actualCompany != companyId || !isManager)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
