@@ -83,6 +83,39 @@ namespace OwinSelfhostSample
             return response;
         }
 
+        public HttpResponseMessage Post(int id,HttpRequestMessage request)
+        {
+            var main = new MainAccess();
+            var response = new HttpResponseMessage();
+            if (id != -1)
+            {
+                response.Content = new StringContent("id is not -1");
+                //response
+
+            }
+            var user = request.Content.ReadAsAsync<User>().Result;
+
+            var idString = request.Headers.GetValues("token").First();
+
+            if (!main.IsUserManager(main.GetUser(user.id).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("user is not in company");
+                return response;
+            }
+
+            if (main.CheckIsUserExist(user.username))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("username exist in the system");
+                return response;
+            }
+
+            main.CreateUser(user.companyId, user);
+
+            response.StatusCode = HttpStatusCode.Created;
+            return response;
+        }
         public HttpResponseMessage Put(int id, HttpRequestMessage request)
         {
             var main = new MainAccess();

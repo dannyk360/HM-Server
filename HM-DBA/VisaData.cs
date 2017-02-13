@@ -57,7 +57,7 @@ namespace HM_DBA
         public void Create(SqlConnection conn, Company company)
         {
             var query = new SqlCommand();
-            string expiretionDateFormat = "yyyy-MM-dd HH:MM:ss";
+          //  string expiretionDateFormat = "yyyy-dd-mm HH:MM:ss";
             conn.Open();
             query.CommandText = "INSERT INTO Visa (id, visaNumber, expiretionDate, cvv) VALUES ('"
                                  + (company.visaId) + "', '" + company.visa.visaNumber + "', '" + company.visa.expirationDate+ "', '"
