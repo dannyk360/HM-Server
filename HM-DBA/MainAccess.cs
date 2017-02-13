@@ -173,5 +173,17 @@ namespace HM_DBA
         {
             return users.CheckIsUserManager(connection,companyId, tokenId);
         }
+
+        public void DeleteCompany(int id)
+        {
+            var usersInCompany = users.GetByCompanyId(connection, id);
+            usersInCompany.ForEach(user =>
+            {
+                shifts.DeleteByUser(connection, user.id);
+                users.Delete(connection,user.id);
+            });
+            visas.DeleteByCompany(connection, companies.Get(connection,id).visaId);
+            companies.Delete(connection, id);
+        }
     }
 }

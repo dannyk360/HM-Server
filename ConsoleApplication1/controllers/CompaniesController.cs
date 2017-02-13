@@ -132,7 +132,24 @@ namespace OwinSelfhostSample
 
         }
 
-       
+        public HttpResponseMessage Delete(int id, HttpRequestMessage request)
+        {
+            var main = new MainAccess();
+            var response = new HttpResponseMessage();
+            var idString = request.Headers.GetValues("token").First();
+
+            if (!main.CheckIsAdmin(int.Parse(idString)))
+            {
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.Content = new StringContent("user is not an admin");
+                return response;
+            }
+
+            main.DeleteCompany(id);
+
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
+        }
 
     }
 }
