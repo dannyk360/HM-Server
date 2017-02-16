@@ -90,29 +90,25 @@ namespace OwinSelfhostSample
             if (id != -1)
             {
                 response.Content = new StringContent("id is not -1");
-                //response
-
+                response.StatusCode = HttpStatusCode.BadRequest;
+                return response;
             }
-            var user = request.Content.ReadAsAsync<User>().Result;
-
+            var userIds = request.Content.ReadAsAsync<List<int>>().Result;
+            if (!userIds.Any())
+            {
+                response.StatusCode = HttpStatusCode.OK;
+                return response;
+            }
             var idString = request.Headers.GetValues("token").First();
 
-            if (!main.IsUserManager(main.GetUser(user.id).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
+            if (!main.IsUserManager(main.GetUser(userIds[0]).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
                 response.Content = new StringContent("user is not in company");
                 return response;
             }
 
-            if (main.CheckIsUserExist(user.username))
-            {
-                response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("username exist in the system");
-                return response;
-            }
-
-            main.CreateUser(user.companyId, user);
-
+            
             response.StatusCode = HttpStatusCode.Created;
             return response;
         }
