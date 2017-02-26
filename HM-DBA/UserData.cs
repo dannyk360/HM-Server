@@ -59,7 +59,6 @@ namespace HM_DBA
                 returnValue.lastName = (string)reader["lastName"];
                 returnValue.isAdmin = (bool)reader["isAdmin"];
                 returnValue.isManager = (bool)reader["isManager"];
-                returnValue.password  = (string)reader["password"];
                 returnValue.phone = (string)reader["phone"];
                 returnValue.role = (string)reader["role"];
             }
@@ -91,7 +90,6 @@ namespace HM_DBA
                 user.lastName = (string)reader["lastName"];
                 user.isAdmin = (bool)reader["isAdmin"];
                 user.isManager = (bool)reader["isManager"];
-                user.password = (string)reader["password"];
                 user.phone = (string)reader["phone"];
                 user.role = (string)reader["role"];
                 returnValue.Add(user);

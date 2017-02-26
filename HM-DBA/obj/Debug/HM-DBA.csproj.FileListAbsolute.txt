@@ -13,3 +13,8 @@ C:\Users\CodeValue\Desktop\New folder (3)\HM-Server\HM-DBA\bin\Debug\HM-DBA.pdb
 C:\Users\CodeValue\Desktop\New folder (3)\HM-Server\HM-DBA\obj\Debug\HM-DBA.csprojResolveAssemblyReference.cache
 C:\Users\CodeValue\Desktop\New folder (3)\HM-Server\HM-DBA\obj\Debug\HM-DBA.dll
 C:\Users\CodeValue\Desktop\New folder (3)\HM-Server\HM-DBA\obj\Debug\HM-DBA.pdb
+C:\Users\CodeValue\Desktop\לימודים\web\HM-Server\HM-DBA\bin\Debug\HM-DBA.dll
+C:\Users\CodeValue\Desktop\לימודים\web\HM-Server\HM-DBA\bin\Debug\HM-DBA.pdb
+C:\Users\CodeValue\Desktop\לימודים\web\HM-Server\HM-DBA\obj\Debug\HM-DBA.csprojResolveAssemblyReference.cache
+C:\Users\CodeValue\Desktop\לימודים\web\HM-Server\HM-DBA\obj\Debug\HM-DBA.dll
+C:\Users\CodeValue\Desktop\לימודים\web\HM-Server\HM-DBA\obj\Debug\HM-DBA.pdb

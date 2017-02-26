@@ -19,7 +19,7 @@ namespace HM_DBA
         public SqlConnection connection=null;
         public MainAccess()
         {
-            connection = new SqlConnection("Data Source=DESKTOP-2HE6AK2\\SQLEXPRESS;Initial Catalog=HM_DB;Integrated Security=True");
+            connection = new SqlConnection("Data Source=localhost\\SQLEXPRESS;Initial Catalog=HM_DB;Integrated Security=True");
             shifts = new ShiftData();
             users = new UserData();
             visas = new VisaData();
