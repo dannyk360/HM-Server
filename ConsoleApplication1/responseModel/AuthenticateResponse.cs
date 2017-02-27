@@ -12,6 +12,7 @@ namespace ConsoleApplication1.responseModel
     {
         public User user;
         public Company company;
+        public string adminCode;
         public string token;
 
         public AuthenticateResponse()

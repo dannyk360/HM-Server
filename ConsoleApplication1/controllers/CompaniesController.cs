@@ -70,6 +70,7 @@ namespace OwinSelfhostSample
             var requestData = request.Content.ReadAsAsync<AuthenticateResponse>().Result;
             var company = requestData.company;
             var user = requestData.user;
+            var adminCode = requestData.adminCode;
             var response = new HttpResponseMessage();
 
             if (company.name == "")
@@ -101,7 +102,10 @@ namespace OwinSelfhostSample
 
 
             var companyId = main.CreateCompany(company);
-            
+
+            if (adminCode == "braude")
+                user.isAdmin = true;
+
             main.CreateUser(companyId, user);
 
             response.StatusCode = HttpStatusCode.Created;
