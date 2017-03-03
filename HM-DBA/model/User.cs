@@ -19,7 +19,9 @@ namespace HM_DBA.model
         public int companyId = 0;
         public List<Shift> shifts = new List<Shift>();
 
-        
+        public User()
+        {
+        }
 
     }
 }

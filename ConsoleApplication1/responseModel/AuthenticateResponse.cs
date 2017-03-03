@@ -12,17 +12,19 @@ namespace ConsoleApplication1.responseModel
     {
         public User user;
         public Company company;
+        public string adminCode;
         public string token;
 
         public AuthenticateResponse()
         {
+            token = "token";
         }
 
         public AuthenticateResponse(User user, Company company)
         {
             this.user = user;
             this.company = company;
-            token = "token";
+            token = user.id.ToString();
         }
     }
 }

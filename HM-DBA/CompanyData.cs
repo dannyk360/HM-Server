@@ -127,5 +127,18 @@ namespace HM_DBA
             conn.Close();
             return Get(conn, id).visaId;
         }
+
+        public void Delete(SqlConnection conn, int id)
+        {
+            var query = new SqlCommand();
+
+            conn.Open();
+            query.CommandText = "DELETE FROM Company WHERE id = " + id;
+            query.CommandType = CommandType.Text;
+            query.Connection = conn;
+
+            query.ExecuteReader();
+            conn.Close();
+        }
     }
 }

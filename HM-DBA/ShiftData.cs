@@ -21,7 +21,7 @@ namespace HM_DBA
             reader = query.ExecuteReader();
             while (reader.Read())
             {
-                Shift newShift = new Shift((DateTime)reader["date"], (DateTime)reader["start"], (DateTime)reader["endDate"], (string)reader["comment"]);
+                Shift newShift = new Shift(reader["date"].ToString(), reader["start"].ToString(),reader["endDate"].ToString(), (string)reader["comment"]);
                 returnValue.Add(newShift);
             }
             conn.Close();

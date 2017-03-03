@@ -17,7 +17,7 @@ namespace ConsoleApplication1
                 defaults: new { id = RouteParameter.Optional }
                 
             );
-
+            config.EnableCors();
             appBuilder.UseWebApi(config);
         }
     }
