@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using HM_DBA.model;
+using MySql.Data.MySqlClient;
 
 namespace HM_DBA
 {
     internal class ShiftData
     {
-        public List<Shift> GetById(SqlConnection conn, int userId)
+        public List<Shift> GetById(MySqlConnection conn, int userId)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             List<Shift> returnValue = new List<Shift>();
             conn.Open();
             query.CommandText = "SELECT * FROM Shifts WHERE userId = " + userId ;
@@ -28,9 +28,9 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public void DeleteByUser(SqlConnection conn, int userId)
+        public void DeleteByUser(MySqlConnection conn, int userId)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
 
             conn.Open();
             query.CommandText = "DELETE FROM Shifts WHERE userId = " + userId;
@@ -41,9 +41,9 @@ namespace HM_DBA
             conn.Close();
         }
 
-        public void Create(SqlConnection conn, int userId, List<Shift> shifts)
+        public void Create(MySqlConnection conn, int userId, List<Shift> shifts)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
             shifts.ForEach(shift =>
                 {
                     query.CommandText = "INSERT INTO Shifts (date, start, endDate, comment, id, userId" + ") VALUES ('"
@@ -59,10 +59,10 @@ namespace HM_DBA
             );
         }
 
-        private int GetLast(SqlConnection conn)
+        private int GetLast(MySqlConnection conn)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             int max = 0;
             conn.Open();
             query.CommandText = "SELECT * FROM Shifts";

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using HM_DBA.model;
+using MySql.Data.MySqlClient;
 
 namespace HM_DBA
 {
     internal class VisaData
     {
-        public Visa Get(SqlConnection conn, int visaId)
+        public Visa Get(MySqlConnection conn, int visaId)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             Visa returnValue;
             conn.Open();
             query.CommandText = "SELECT * FROM Visa WHERE id = " + visaId;
@@ -32,10 +32,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public int GetLastId(SqlConnection conn)
+        public int GetLastId(MySqlConnection conn)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             int max = 0;
             conn.Open();
             query.CommandText = "SELECT * FROM Visa";
@@ -54,9 +54,9 @@ namespace HM_DBA
         
           }
 
-        public void Create(SqlConnection conn, Company company)
+        public void Create(MySqlConnection conn, Company company)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
           //  string expiretionDateFormat = "yyyy-dd-mm HH:MM:ss";
             conn.Open();
             query.CommandText = "INSERT INTO Visa (id, visaNumber, expiretionDate, cvv) VALUES ('"
@@ -69,9 +69,9 @@ namespace HM_DBA
             conn.Close();
         }
 
-        public void Update(SqlConnection conn, int visaId, Visa companyVisa)
+        public void Update(MySqlConnection conn, int visaId, Visa companyVisa)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
             conn.Open();
             query.CommandText = "UPDATE Visa SET visaNumber = '" + companyVisa.visaNumber + "', expiretionDate = '" + companyVisa.expirationDate +
                                 "',cvv = " + companyVisa.cvv + " WHERE id = " + visaId + ";";
@@ -83,9 +83,9 @@ namespace HM_DBA
             conn.Close();
         }
 
-        public void DeleteByCompany(SqlConnection conn, int id)
+        public void DeleteByCompany(MySqlConnection conn, int id)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
 
             conn.Open();
             query.CommandText = "DELETE FROM Visa WHERE id = " + id;
