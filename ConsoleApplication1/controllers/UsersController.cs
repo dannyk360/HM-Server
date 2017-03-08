@@ -108,7 +108,8 @@ namespace OwinSelfhostSample
                 return response;
             }
 
-            
+            // YOU ARE DOING NOTHING WITH THIS REQUEST IN THE DATABASE??
+
             response.StatusCode = HttpStatusCode.Created;
             return response;
         }

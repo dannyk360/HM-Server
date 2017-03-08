@@ -11,9 +11,6 @@ namespace HM_DBA
 {
     public class UserData
     {
-        
-        public int David { get; set; }
-
         public string GetUsersPassword(MySqlConnection conn,string username)
         {
             var query = new MySqlCommand(); 
@@ -267,12 +264,15 @@ namespace HM_DBA
         {
             var query = new MySqlCommand();
             MySqlDataReader reader;
+            var isAdmin = user.isAdmin ? 1 : 0;
+            var isManager = user.isManager ? 1 : 0;
+            var passwordUpdateString = user.password.Length > 0 ? "',password = '" + user.password : "";
             conn.Open();
             query.CommandText = "UPDATE Users SET address = '" + user.address + "', department = '" + user.department +
                                 "',email = '" + user.email + "', firstName = '" + user.firstName +
                                 "',username = '" + user.username + "', lastName = '" + user.lastName +
-                                "',isAdmin = '" + user.isAdmin + "', isManager = '" + user.isManager +
-                                "',password = '" + user.password + "', phone = '" + user.phone +
+                                "',isAdmin = '" + isAdmin + "', isManager = '" + isManager +
+                                 passwordUpdateString + "', phone = '" + user.phone +
                                 "',role = '" + user.role + "' WHERE id = " + id + ";";
             query.CommandType = CommandType.Text;
             query.Connection = conn;
