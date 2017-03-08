@@ -30,9 +30,7 @@ namespace OwinSelfhostSample
                 response.Content = new StringContent("user is not in company");
                 return response;
             }
-            main.DeleteUsersOfCompany(companyId);
-
-            main.AddUsersToCompany(companyId,companyUsers);
+            companyUsers.ForEach((user) => main.UpdateUser(user.id,user));
 
             
             response.StatusCode = HttpStatusCode.OK;

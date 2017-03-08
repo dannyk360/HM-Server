@@ -108,7 +108,7 @@ namespace OwinSelfhostSample
                 return response;
             }
 
-            // YOU ARE DOING NOTHING WITH THIS REQUEST IN THE DATABASE??
+            userIds.ForEach((userId) => main.DeleteUser(userId));
 
             response.StatusCode = HttpStatusCode.Created;
             return response;
