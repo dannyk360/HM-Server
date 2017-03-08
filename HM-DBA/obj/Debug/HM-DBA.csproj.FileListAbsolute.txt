@@ -23,5 +23,4 @@ C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\bin\Debug\HM-DBA.pdb
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\obj\Debug\HM-DBA.csprojResolveAssemblyReference.cache
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\obj\Debug\HM-DBA.dll
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\obj\Debug\HM-DBA.pdb
-C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\bin\Debug\MySql.Data.dll
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\bin\Debug\MySql.Data.xml

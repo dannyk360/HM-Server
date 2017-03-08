@@ -30,8 +30,13 @@ namespace OwinSelfhostSample
                 response.Content = new StringContent("user is not in company");
                 return response;
             }
-            companyUsers.ForEach((user) => main.UpdateUser(user.id,user));
 
+            foreach (var user in companyUsers)
+            {
+                if (main.isUserInCompany(user.companyId,user.id))
+                    main.UpdateUser(user.id,user);
+                else main.CreateUser(user.companyId,user);
+            }
             
             response.StatusCode = HttpStatusCode.OK;
 
