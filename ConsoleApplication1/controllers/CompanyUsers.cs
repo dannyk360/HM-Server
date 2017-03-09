@@ -27,7 +27,7 @@ namespace OwinSelfhostSample
             if (!main.IsUserManager(id, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("user is not in company");
+                response.Content = new StringContent("המשתמש לא קיים בחברה");
                 return response;
             }
 

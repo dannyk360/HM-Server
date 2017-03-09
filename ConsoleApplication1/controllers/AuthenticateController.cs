@@ -57,11 +57,11 @@ namespace OwinSelfhostSample
                 response.StatusCode = HttpStatusCode.BadRequest;
                 if (e.ParamName == "username")
                 {
-                    response.Content = new StringContent("username not found");
+                    response.Content = new StringContent("שם משתמש או סיסמא שגויים");
                 }
                 else if (e.ParamName == "password")
                 {
-                    response.Content = new StringContent("the password is not correct");
+                    response.Content = new StringContent("שם משתמש או סיסמא שגויים");
                 }
                 return response;
             }

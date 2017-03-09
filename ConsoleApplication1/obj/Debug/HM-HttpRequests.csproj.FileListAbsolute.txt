@@ -130,3 +130,5 @@ C:\Users\CodeValue\Desktop\Test\HM-Server\ConsoleApplication1\bin\Debug\System.W
 C:\Users\CodeValue\Desktop\Test\HM-Server\ConsoleApplication1\obj\Debug\HM-HttpRequests.csprojResolveAssemblyReference.cache
 C:\Users\CodeValue\Desktop\Test\HM-Server\ConsoleApplication1\bin\Debug\MySql.Data.dll
 C:\Users\CodeValue\Desktop\Test\HM-Server\ConsoleApplication1\bin\Debug\MySql.Data.xml
+C:\Users\CodeValue\Desktop\HM-Server\ConsoleApplication1\bin\Debug\MySql.Data.dll
+C:\Users\CodeValue\Desktop\HM-Server\ConsoleApplication1\bin\Debug\MySql.Data.xml

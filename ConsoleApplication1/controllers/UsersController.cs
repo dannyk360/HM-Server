@@ -25,7 +25,7 @@ namespace OwinSelfhostSample
             if (!main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("user is not Admin");
+                response.Content = new StringContent("המשתמש אינו אדמיניסטרטור");
                 return response;
             }
             var users = main.GetUsers();
@@ -44,7 +44,7 @@ namespace OwinSelfhostSample
             if (main.CheckIfUserExist(id))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("username exist in the system");
+                response.Content = new StringContent("שם המשתמש קיים במערכת");
                 return response;
             }
             var user = main.GetUser(id);
@@ -66,14 +66,14 @@ namespace OwinSelfhostSample
             if (!main.IsUserManager(main.GetUser(user.id).companyId , int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("user is not in company");
+                response.Content = new StringContent("המשתמש לא קיים בחברה");
                 return response;
             }
 
             if (main.CheckIsUserExist(user.username))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("username exist in the system");
+                response.Content = new StringContent("שם המשתמש קיים כבר במערכת");
                 return response;
             }
 
@@ -104,7 +104,7 @@ namespace OwinSelfhostSample
             if (!main.IsUserManager(main.GetUser(userIds[0]).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("user is not in company");
+                response.Content = new StringContent("המשתמש לא קיים בחברה");
                 return response;
             }
 
@@ -125,13 +125,13 @@ namespace OwinSelfhostSample
             if (!main.isUserInCompany(main.GetUser(id).companyId, int.Parse(idString)) && !main.IsUserManager(main.GetUser(user.id).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("user is not in company");
+                response.Content = new StringContent("המשתמש לא קיים בחברה");
                 return response;
             }
 
             if (main.CheckIfUserExist(id))
             {
-                response.Content = new StringContent("the user does not exist");
+                response.Content = new StringContent("המשתמש לא קיים במערכת");
                 response.StatusCode = HttpStatusCode.NotFound;
                 return response;
             }
@@ -151,7 +151,7 @@ namespace OwinSelfhostSample
             if (!main.IsUserManager(main.GetUser(id).companyId, int.Parse(idString)) && !main.CheckIsAdmin(int.Parse(idString)))
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
-                response.Content = new StringContent("user is not in company");
+                response.Content = new StringContent("המשתמש לא קיים בחברה");
                 return response;
             }
 

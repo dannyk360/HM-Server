@@ -24,3 +24,4 @@ C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\obj\Debug\HM-DBA.csprojResolveA
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\obj\Debug\HM-DBA.dll
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\obj\Debug\HM-DBA.pdb
 C:\Users\CodeValue\Desktop\Test\HM-Server\HM-DBA\bin\Debug\MySql.Data.xml
+C:\Users\CodeValue\Desktop\HM-Server\HM-DBA\bin\Debug\MySql.Data.xml
