@@ -61,7 +61,7 @@ namespace HM_DBA
             var allCompanies = companies.GetAll(connection);
             allCompanies.ForEach(company =>
             {
-                company.visa = visas.Get(connection, company.id);
+                company.visa = visas.Get(connection, company.visaId);
                 company.employees = users.GetByCompanyId(connection, company.id);
                 company.employees.ForEach(userInComapny =>
                 {
