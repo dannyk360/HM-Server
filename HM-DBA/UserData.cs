@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HM_DBA.model;
+using MySql.Data.MySqlClient;
 
 namespace HM_DBA
 {
     public class UserData
     {
-        
-        public string GetUsersPassword(SqlConnection conn,string username)
+        public string GetUsersPassword(MySqlConnection conn,string username)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand(); 
+
+            MySqlDataReader reader;
             string returnValue;
-            conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE username = '" + username+"'" ;
             query.CommandType = CommandType.Text;
             query.Connection = conn;
+
+            if (conn.State == ConnectionState.Closed)
+                conn.Open();
 
             reader = query.ExecuteReader();
             if (!reader.Read())
@@ -33,10 +35,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public User Get(SqlConnection conn,string username)
+        public User Get(MySqlConnection conn,string username)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             User returnValue;
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE username = '" + username + "'";
@@ -66,10 +68,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public List<User> GetByCompanyId(SqlConnection conn, int companyId)
+        public List<User> GetByCompanyId(MySqlConnection conn, int companyId)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             List<User> returnValue = new List<User>();
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE companyId = " + companyId;
@@ -98,10 +100,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        internal bool CheckExist(SqlConnection conn, int id)
+        internal bool CheckExist(MySqlConnection conn, int id)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             bool returnValue = false;
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE id = " + id;
@@ -115,10 +117,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public bool CheckExist(SqlConnection conn, string username)
+        public bool CheckExist(MySqlConnection conn, string username)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             bool returnValue = false;
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE username = '" + username + "'";
@@ -133,10 +135,10 @@ namespace HM_DBA
 
          }
 
-        public int GetLast(SqlConnection conn)
+        public int GetLast(MySqlConnection conn)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             int max = 0;
             conn.Open();
             query.CommandText = "SELECT * FROM Users";
@@ -154,11 +156,11 @@ namespace HM_DBA
             return max+1;
         }
 
-        internal User Get(SqlConnection conn, int id)
+        internal User Get(MySqlConnection conn, int id)
         {
 
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             User returnValue;
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE id = " + id;
@@ -189,16 +191,17 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public void Create(SqlConnection conn, int companyId, User user)
+        public void Create(MySqlConnection conn, int companyId, User user)
         {
-            var query = new SqlCommand();
-
+            var query = new MySqlCommand();
+            var isAdmin = user.isAdmin ? 1 : 0;
+            var isManager = user.isManager ? 1 : 0;
             query.CommandText = "INSERT INTO Users (id, username, password, firstName, lastName, email" +
                                 ", phone, address, department, role, isManager, isAdmin, companyId" + ") VALUES ('"
                                  + GetLast(conn) + "', '" + user.username + "', '" + user.password + "', '"
                                  + user.firstName + "', '" + user.lastName+  "', '" + user.email 
                                  + "', '" + user.phone + "', '" + user.address + "', '" + user.department + "', '" +
-                                 user.role + "', '" + user.isManager + "', '" + user.isAdmin + "', '" + companyId
+                                 user.role + "', '" + isManager + "', '" + isAdmin + "', '" + companyId
                                  + "');";
             query.CommandType = CommandType.Text;
             conn.Open();
@@ -209,9 +212,9 @@ namespace HM_DBA
         }
 
 
-        public void DeleteByCompany(SqlConnection conn,int companyId)
+        public void DeleteByCompany(MySqlConnection conn,int companyId)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
 
             conn.Open();
             query.CommandText = "DELETE FROM Users WHERE companyId = " + companyId;
@@ -222,10 +225,10 @@ namespace HM_DBA
             conn.Close();
         }
 
-        public List<User> GetAll(SqlConnection conn)
+        public List<User> GetAll(MySqlConnection conn)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             List<User> returnValue = new List<User>();
             conn.Open();
             query.CommandText = "SELECT * FROM Users";
@@ -257,16 +260,19 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public void Update(SqlConnection conn, int id, User user)
+        public void Update(MySqlConnection conn, int id, User user)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
+            var isAdmin = user.isAdmin ? 1 : 0;
+            var isManager = user.isManager ? 1 : 0;
+            var passwordUpdateString = user.password.Length > 0 ? "',password = '" + user.password : "";
             conn.Open();
             query.CommandText = "UPDATE Users SET address = '" + user.address + "', department = '" + user.department +
                                 "',email = '" + user.email + "', firstName = '" + user.firstName +
                                 "',username = '" + user.username + "', lastName = '" + user.lastName +
-                                "',isAdmin = '" + user.isAdmin + "', isManager = '" + user.isManager +
-                                "',password = '" + user.password + "', phone = '" + user.phone +
+                                "',isAdmin = '" + isAdmin + "', isManager = '" + isManager +
+                                 passwordUpdateString + "', phone = '" + user.phone +
                                 "',role = '" + user.role + "' WHERE id = " + id + ";";
             query.CommandType = CommandType.Text;
             query.Connection = conn;
@@ -277,9 +283,9 @@ namespace HM_DBA
             
         }
 
-        public void Delete(SqlConnection conn, int id)
+        public void Delete(MySqlConnection conn, int id)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
 
             conn.Open();
             query.CommandText = "DELETE FROM Users WHERE id = " + id;
@@ -290,9 +296,9 @@ namespace HM_DBA
             conn.Close();
         }
 
-        public bool CheckIsAdmin(SqlConnection conn, int id)
+        public bool CheckIsAdmin(MySqlConnection conn, int id)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
             bool response;
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE id = " + id;
@@ -315,9 +321,9 @@ namespace HM_DBA
             return response;
         }
 
-        public bool CheckIsUserInCompany(SqlConnection conn,int companyId, int userId)
+        public bool CheckIsUserInCompany(MySqlConnection conn,int companyId, int userId)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
             int actualCompany;
             conn.Open();
             query.CommandText = "SELECT * FROM Users WHERE id = " + userId;
@@ -344,9 +350,9 @@ namespace HM_DBA
             return true;
         }
 
-        public bool CheckIsUserManager(SqlConnection conn, int companyId, int tokenId)
+        public bool CheckIsUserManager(MySqlConnection conn, int companyId, int tokenId)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
             int actualCompany;
             bool isManager;
             conn.Open();

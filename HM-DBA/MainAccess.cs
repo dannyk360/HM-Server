@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using HM_DBA.model;
+using MySql.Data.MySqlClient;
 
 namespace HM_DBA
 {
@@ -16,10 +16,10 @@ namespace HM_DBA
         private UserData users;
         private VisaData visas;
         private CompanyData companies;
-        public SqlConnection connection=null;
+        public MySqlConnection connection =null;
         public MainAccess()
         {
-            connection = new SqlConnection("Data Source=localhost\\SQLEXPRESS;Initial Catalog=HM_DB;Integrated Security=True");
+            connection = new MySqlConnection("server=sql11.freesqldatabase.com;user=sql11162627;database=sql11162627;port=3306;password=WViAkrQbVD;CharSet=utf8;");
             shifts = new ShiftData();
             users = new UserData();
             visas = new VisaData();
@@ -61,7 +61,7 @@ namespace HM_DBA
             var allCompanies = companies.GetAll(connection);
             allCompanies.ForEach(company =>
             {
-                company.visa = visas.Get(connection, company.id);
+                company.visa = visas.Get(connection, company.visaId);
                 company.employees = users.GetByCompanyId(connection, company.id);
                 company.employees.ForEach(userInComapny =>
                 {

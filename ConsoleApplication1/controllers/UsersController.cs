@@ -108,7 +108,8 @@ namespace OwinSelfhostSample
                 return response;
             }
 
-            
+            userIds.ForEach((userId) => main.DeleteUser(userId));
+
             response.StatusCode = HttpStatusCode.Created;
             return response;
         }

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using HM_DBA.model;
+using MySql.Data.MySqlClient;
 
 namespace HM_DBA
 {
     internal class CompanyData
     {
-        public Company Get(SqlConnection conn,int companyId)
+        public Company Get(MySqlConnection conn,int companyId)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             Company returnValue = new Company();
             conn.Open();
             query.CommandText = "SELECT * FROM Company WHERE id = " + companyId;
@@ -32,10 +32,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public List<Company> GetAll(SqlConnection conn)
+        public List<Company> GetAll(MySqlConnection conn)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             List<Company> returnValue = new List<Company>();
             conn.Open();
             query.CommandText = "SELECT * FROM Company";
@@ -57,10 +57,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public bool CheckExist(SqlConnection conn, string companyName)
+        public bool CheckExist(MySqlConnection conn, string companyName)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             bool returnValue = false;
             conn.Open();
             query.CommandText = "SELECT * FROM Company WHERE name = '"+companyName + "'";
@@ -74,10 +74,10 @@ namespace HM_DBA
             return returnValue;
         }
 
-        public int Create(SqlConnection conn, Company company,int lastId)
+        public int Create(MySqlConnection conn, Company company,int lastId)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
 
             conn.Open();
             query.CommandText = "INSERT INTO Company (id, name, address, field, visaId) VALUES ('"
@@ -91,10 +91,10 @@ namespace HM_DBA
             return lastId + 1;
         }
 
-        public int GetLastId(SqlConnection conn)
+        public int GetLastId(MySqlConnection conn)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             int max  = 0;
             conn.Open();
             query.CommandText = "SELECT * FROM Company";
@@ -112,10 +112,10 @@ namespace HM_DBA
             return max;
         }
 
-        public int Update(SqlConnection conn, int id, Company company)
+        public int Update(MySqlConnection conn, int id, Company company)
         {
-            var query = new SqlCommand();
-            SqlDataReader reader;
+            var query = new MySqlCommand();
+            MySqlDataReader reader;
             conn.Open();
             query.CommandText = "UPDATE Company SET address = '"+company.address+ "', field = '" + company.field +
                                 "',name = '" + company.name + "' WHERE id = " + id + ";";
@@ -128,9 +128,9 @@ namespace HM_DBA
             return Get(conn, id).visaId;
         }
 
-        public void Delete(SqlConnection conn, int id)
+        public void Delete(MySqlConnection conn, int id)
         {
-            var query = new SqlCommand();
+            var query = new MySqlCommand();
 
             conn.Open();
             query.CommandText = "DELETE FROM Company WHERE id = " + id;
