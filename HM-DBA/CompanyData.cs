@@ -68,7 +68,7 @@ namespace HM_DBA
             query.Connection = conn;
 
             reader = query.ExecuteReader();
-            if (!reader.Read())
+            if (reader.Read())
                 returnValue = true;
             conn.Close();
             return returnValue;
