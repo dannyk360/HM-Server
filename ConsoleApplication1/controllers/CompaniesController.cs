@@ -128,7 +128,7 @@ namespace OwinSelfhostSample
                 return response;
             }
 
-            if (main.CheckIfCompanyExist(company.name))
+            if (main.CheckIfCompanyExist(company.name) && company.name != main.GetCompany(company.id).name)
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
                 response.Content = new StringContent("שם החברה כבר קיים");
